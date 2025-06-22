@@ -1,0 +1,57 @@
+<!--<link rel="stylesheet" href="/css/login.css"> 
+<link rel="stylesheet" href="/login.css"> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/login.css"> 
+<link rel="stylesheet" href="/login.css"> 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="loginApp" ng-controller="loginCtrl">
+        <div class="container">
+            <h2>Log In</h2>
+            <form ng-submit="login()"> 
+                <label for="name">Name:</label>
+                <input type="text" id="name" ng-model="loginname" placeholder="Enter your name" required> 
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" ng-model="loginpassword" placeholder="Enter your password" required> 
+
+                <input type="submit" value="Login">
+            </form>
+            <a href="signup.html">Create an Account</a>
+        </div>
+    </div>
+
+    <script>
+            var app = angular.module("loginApp", []);
+            app.controller("loginCtrl", function($scope, $http) {
+                $scope.login = function() {
+                    $http.get("http://localhost/login.php", { 
+                        params: { c_name: $scope.loginname, c_password: $scope.loginpassword }  // ✅ Use correct variables
+                    })
+                    .then(function(response) {
+                        if (response.data.success) {
+                            alert("Login successful!");
+                            window.location.href = "home.html"; 
+                        } else {
+                            alert("Login failed: " + response.data.message);
+                        }
+                    })
+                    .catch(function(error) {
+                        console.error("Error:", error);
+                    });
+                };
+            });
+
+        
+        
+    </script>
+</body>
+</html>

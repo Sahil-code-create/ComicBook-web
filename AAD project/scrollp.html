@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="productApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Carousel</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        .carousel-container {
+            position: relative;
+            width: 80%;
+            margin: 50px auto;
+            overflow: hidden;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+        }
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .product-card {
+            min-width: 250px;
+            margin: 10px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        #left-arrow { left: 10px; display: block; }
+        #right-arrow { right: 10px; }
+    </style>
+</head>
+<body ng-controller="CarouselController">
+
+    <div class="carousel-container">
+        <div id="left-arrow" class="arrow" ng-click="scrollLeft()" ng-show="canScrollLeft">&#10094;</div>
+
+        <div class="carousel-images" ng-style="{'transform': 'translateX(' + scrollPosition + 'px)'}">
+            <div class="product-card" ng-repeat="product in products">
+                <img ng-src="{{product.image}}" alt="{{product.name}}" width="200" height="250">
+                <p>{{product.name}}</p>
+                <p>Rs {{product.price}}</p>
+                <button ng-click="addToCart(product)">Add to Cart</button>
+            </div>
+        </div>
+
+        <div id="right-arrow" class="arrow" ng-click="scrollRight()">&#10095;</div>
+    </div>
+
+    <script>
+        var app = angular.module("productApp", []);
+
+        app.controller("CarouselController", function($scope) {
+            $scope.products = [
+                { name: "Attack on Titan", price: 100, image: "Attack_on_titan.jpg" },
+                { name: "Jujutsu Kaisen", price: 150, image: "image2.jpg" },
+                { name: "One Piece", price: 200, image: "image3.jpg" },
+                { name: "Naruto", price: 120, image: "image4.jpg" },
+                { name: "Death Note", price: 90, image: "image5.jpg" }
+            ];
+
+            $scope.cartCount = 0;
+            $scope.scrollPosition = 0;
+            const scrollAmount = 270;
+            const visibleCards = 3;
+
+            $scope.canScrollLeft = false;
+
+            $scope.addToCart = function(product) {
+                $scope.cartCount++;
+                alert(product.name + " added to cart!");
+            };
+
+            $scope.scrollLeft = function() {
+                if ($scope.scrollPosition < 0) {
+                    $scope.scrollPosition += scrollAmount;
+                    $scope.updateArrowVisibility();
+                }
+            };
+
+            $scope.scrollRight = function() {
+                if (Math.abs($scope.scrollPosition) < ($scope.products.length - visibleCards) * scrollAmount) {
+                    $scope.scrollPosition -= scrollAmount;
+                    $scope.updateArrowVisibility();
+                }
+            };
+
+            $scope.updateArrowVisibility = function() {
+                $scope.canScrollLeft = $scope.scrollPosition < 0;
+            };
+        });
+    </script>
+
+</body>
+</html>

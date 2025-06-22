@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="AnimeHub">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - AnimeHub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body ng-controller="CheckoutController">
+
+    <div class="logo" id="logo">
+        <p>AnimeHub</p>
+    </div>
+
+    <div class="navbar" id="navbar">
+        <a href="home.html" class="home-button">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="shop.html">Shop</a>
+        <a href="cart.html" class="cart-button">
+            Cart({{cartCount}})
+        </a>
+    </div>
+
+    <h1 class="breadcrumb">Checkout</h1>
+
+    <div class="checkout-container">
+        <!-- Billing & Shipping Information -->
+        <div class="checkout-section">
+            <h2>Billing & Shipping Details</h2>
+            <form>
+                <label>Full Name:</label>
+                <input type="text" ng-model="customer.name" required>
+
+                <label>Email:</label>
+                <input type="email" ng-model="customer.email" required>
+
+                <label>Address:</label>
+                <input type="text" ng-model="customer.address" required>
+
+                <label>Phone:</label>
+                <input type="text" ng-model="customer.phone" required>
+            </form>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="checkout-section">
+            <h2>Order Summary</h2>
+            <div class="cart-item" ng-repeat="item in cart">
+                <img ng-src="{{item.image}}" class="cart-image">
+                <p>{{ item.name }} - Rs {{ item.price }} x {{ item.quantity }}</p>
+            </div>
+            <h3>Total: Rs {{ getTotalPrice() }}</h3>
+        </div>
+
+        <!-- Payment Options -->
+        <div class="checkout-section">
+            <h2>Payment Method</h2>
+            <label><input type="radio" ng-model="paymentMethod" value="COD"> Cash on Delivery</label>
+            <label><input type="radio" ng-model="paymentMethod" value="Card"> Credit/Debit Card</label>
+        </div>
+
+        <button class="checkout-btn" ng-click="placeOrder()">Place Order</button>
+    </div>
+    <script>
+        app.controller("CheckoutController", function ($scope, $window) {
+            $scope.cart = JSON.parse(localStorage.getItem("cart")) || [];
+            $scope.customer = {};
+            $scope.paymentMethod = "COD"; // Default
+        
+            $scope.getTotalPrice = function () {
+                return $scope.cart.reduce((total, item) => total + item.price * item.quantity, 0);
+            };
+        
+            $scope.placeOrder = function () {
+                if (!$scope.customer.name || !$scope.customer.email || !$scope.customer.address || !$scope.customer.phone) {
+                    alert("Please fill in all details.");
+                    return;
+                }
+                alert("Order Placed Successfully!");
+                localStorage.removeItem("cart");
+                $window.location.href = "order-success.html";
+            };
+        });
+        
+    </script>
+
+</body>
+</html>

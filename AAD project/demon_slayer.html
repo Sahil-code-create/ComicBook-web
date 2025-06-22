@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeHub - Demon slayer</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ff4d6d;
+            padding: 10px 20px;
+            color: white;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .search-bar input {
+            padding: 5px;
+        }
+        .cart {
+            font-size: 18px;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            background: #ffccd5;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+        }
+        .breadcrumb {
+            padding: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        .product-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .product-container img {
+            max-width: 400px;
+            border-radius: 10px;
+        }
+        .product-details {
+            margin-left: 20px;
+        }
+        .price {
+            font-size: 24px;
+            color: #ff4d6d;
+            font-weight: bold;
+        }
+        .add-to-cart {
+            background: #ff4d6d;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: not-allowed;
+        }
+        .share-icons span {
+            font-size: 20px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .whatsapp-icon {
+            color: green;
+            font-size: 22px;
+        }
+        .image-footer p {
+            font-size: 10px;
+            text-align: center;
+            color: #666;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-bar">
+            <div class="logo">AnimeHub</div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+                <button>&#128269;</button>
+            </div>
+            <div class="cart">
+                <span>&#128722; 0</span>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Anime</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Shop</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="breadcrumb">Home / Demon slayer</div>
+        <div class="product-container">
+            <img src="D:\SYCS\WESITE PAGES/demon_slayer.jpg" alt="Demon slayer">
+            <div class="product-details">
+                <h1>Demon slayer</h1>
+                <p class="price">&#8377;200.00</p>
+                <button class="add-to-cart" disabled>Add to Cart</button>
+                <div class="share-icons">
+                    <span>&#128222;</span>
+                    <span>&#128101;</span>
+                    <span class="whatsapp-icon">&#128172;</span> <!-- WhatsApp icon -->
+                </div>
+            </div>
+        </div>
+           </main>
+</body>
+</html>
